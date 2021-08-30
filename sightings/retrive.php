@@ -18,6 +18,7 @@ $result = mysqli_num_rows($query);
 
 if ($result > 0) {
     $result = mysqli_fetch_array($query);
+    //print_r  ($result)  ; 
 
 } 
 
@@ -25,5 +26,5 @@ if ($result > 0) {
 
 
 
-mysqli_close($connection);
+//mysqli_close($connection);
 ?>
