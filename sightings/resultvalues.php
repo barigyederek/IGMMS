@@ -6,7 +6,7 @@
                             <h3>Time</h3>
                             <hr>
                             
-                                <li class="card-text "><?php echo $row['animal'];   ?></li>
+                                <li class="card-text "><?php global $row; echo  $row['animal'];   ?></li>
                             
                                  
                         </div>
@@ -14,7 +14,7 @@
                             <h3>Animal</h3>
                             <hr>
                             
-                            <li class="card-text "><?php echo $row['location'];  ?></li>                            
+                            <li class="card-text "><?php global $row; echo $row['location'];  ?></li>                            
                                 
                             
 
@@ -23,7 +23,7 @@
                             <h3>Type</h3>
                             <hr>
                             
-                            <li class="card-text "><?php echo $row ['ranger'];   ?></li>                            
+                            <li class="card-text "><?php global $row; echo $row ['ranger'];   ?></li>                            
                                 
 
                         </div>

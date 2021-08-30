@@ -13,6 +13,7 @@ if ($connection->connect_error) {
 
 $query = mysqli_query($connection,"SELECT * FROM rangers");
 
+$result = array();
 $result = mysqli_num_rows($query);
 
 if ($result > 0) {
@@ -22,17 +23,6 @@ if ($result > 0) {
 
 
 
-// //if we get any results we show them in table data
-// if($row>0){
-//     // echo $row['animal'];   
-
-//     $result_animal = $row['animal'];
-//     $result_location = $row['location'];
-//     //$result_location = $row['location'];
-
-//     // echo '<li class="card-text ">' . $row['animal'] . '</li>';
-
-// }
 
 
 mysqli_close($connection);

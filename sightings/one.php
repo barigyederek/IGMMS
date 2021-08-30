@@ -1,10 +1,35 @@
 <html><head>
     <title> INTEGRATED GAME MONITORING AND MANAGEMENT SYSTEM</title>
- <?php
+<?php 
+$server_name = "localhost";//put your server name 
+$user_name = "root";//your user name here 
+$user_password = "";// the password you use 
+$database_name = "sightings";// your database name
 
- include 'retrive.php';
- //include_once 'retrive.php';
- ?>
+// build coonnection with database 
+$connection = new mysqli($server_name, $user_name, $user_password, $database_name);
+// verify connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+$query = mysqli_query($connection,"SELECT * FROM rangers");
+
+$result = array();
+$result = mysqli_num_rows($query);
+
+if ($result > 0) {
+    $result = mysqli_fetch_array($query);
+
+} 
+
+
+
+
+
+mysqli_close($connection);
+?>
+
   
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link rel="stylesheet" href="/IGMMS/wildlifetrackereverse/public/css/bootstrap.css">
