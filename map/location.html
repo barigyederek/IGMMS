@@ -22,7 +22,7 @@
 
         function showPosition(position) {
             var latlon = position.coords.latitude + "," + position.coords.longitude;
-            var img_url = "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY
+            var img_url = "https://www.googleapis.com/geolocation/v1/geolocate?key=""
 " +latlon+;
             document.getElementById("demo").innerHTML = "<img src='"+img_url+"'>";
         }
