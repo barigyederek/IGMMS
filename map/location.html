@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="getLocation()"> Smash me </button>
+    <p id="demo"></p>
+    <script>
+        var x = document.getElementById("demo");
+
+        function getLocation(params) {
+            if (navigator.geolocation) {       
+                navigator.geolocation.getCurrentPosition(showPosition, showError);   
+            } else {
+                x.innerHTML = "geolocation is not supported" ;
+            }
+        }
+
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            var img_url = "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY
+" +latlon+;
+            document.getElementById("demo").innerHTML = "<img src='"+img_url+"'>";
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISION_DENIED:
+                    x.innerHTML="user denied the request for location"
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+            
+        }
+    </script>
+</body>
+</html>
