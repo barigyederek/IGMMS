@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/tracking/jquery-3.6.0.min.js"></script>
+    <script>
+      jQuery(window).ready(function () {
+        jQuery("#btnInit").click(initiate_geolocation);
+        jQuery("#btnStop").click(stop_watchlocation);
+      });
+
+      function initiate_geolocation() {
+        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+      }
+
+      var watchProcess = null;
+
+      function initiate_watchlocation() {
+        if (watchProcess == null) {
+          watchProcess = navigator.geolocation.watchPosition(
+            handle_geolocation_query,
+            handle_errors
+          );
+        }
+      }
+
+      function stop_watchlocation() {
+        if (watchProcess != null) {
+          navigator.geolocation.clearWatch(watchProcess);
+          watchProcess = null;
+        }
+      }
+
+      function handle_errors(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert("user did not share geolocation data");
+            break;
+
+          case error.POSITION_UNAVAILABLE:
+            alert("could not detect current position");
+            break;
+
+          case error.TIMEOUT:
+            alert("retrieving position timed out");
+            break;
+
+          default:
+            alert("unknown error");
+            break;
+        }
+      }
+
+      /*
+This function gets called every time something changes
+with our AJAX request.
+*/
+// function handleResponse() {
+//     // "this" refers to the object we called addEventListener on
+//     var data = this;
+
+//     /*
+//     Exit this function unless the AJAX request is complete,
+//     and the server has responded.
+//     */
+//     if (data.readyState != 4)
+//         return;
+
+//     // If there wasn't an error, run our showResponse function
+//     if (data.status == 200) {
+//         var ajaxResponse = data.responseText;
+
+//         showResponse(ajaxResponse);
+//     }
+// }
+
+      function handle_geolocation_query(position) {
+        // alert(
+        //   "Lat: " +
+        //     position.coords.latitude +
+        //     " " +
+        //     "Lon: " +
+        //     position.coords.longitude
+        // );
+
+        var x = document.getElementById("hello");
+        x.innerHTML =
+          "Latitude: " +
+          position.coords.latitude +
+          "<br>Longitude: " +
+          position.coords.longitude;
+
+        var data = new FormData();
+        data.append(position.coords.latitude);
+        data.append(position.coords.longitude);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "data.php");
+        xhr.onload = function () {
+          xhr.send(data);
+        };
+
+        jQuery("#info").html(text);
+
+        var image_url =
+          "https://maps.googleapis.com/maps/api/staticmap?center=40.714%2c%20-73.998&zoom=12&size=400x400&key=AIzaSyBH9Q7cyxvJlueW_Kk1Nyk3phcKVLATsC8" +
+          position.coords.latitude +
+          "," +
+          position.coords.longitude +
+          "&zoom=14&size=300x400&markers=color:blue|label:S|" +
+          position.coords.latitude +
+          "," +
+          position.coords.longitude;
+
+        jQuery("#map").remove();
+        jQuery(document.body).append(
+          jQuery(document.createElement("img"))
+            .attr("src", image_url)
+            .attr("id", "map")
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <button id="btnInit">Find my location</button> &nbsp;
+      <button id="btnStop">stop location updates</button>
+    </div>
+    <p id="display"></p>
+    <p id="hello"></p>
+
+    <p align="center">
+      <iframe
+        width="1000"
+        length="1000"
+        height="500"
+        loadingStyle="lazy"
+        allowfullscreen
+        src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDF1DlgYZydc30RBGgP5f6JpX9mfFWT3tc&maptype=satellite&zoom=18&center=pos.coords.latitude,pos.coords.longitude"
+        frameborder="0"
+      >
+      </iframe>
+    </p>
+  </body>
+</html>

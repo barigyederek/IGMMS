@@ -260,8 +260,6 @@ mysqli_close($connection);
     </div>
 
 
-
-
  </div>
 
  
